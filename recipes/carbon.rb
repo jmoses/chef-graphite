@@ -4,6 +4,16 @@ python_pip "carbon" do
   action :install
 end
 
+python_pip "daemonize"
+
+cookbook_file "carbon/util.py" do
+  owner 'root'
+  group 'root'
+
+  path "/opt/grahpite/lib/carbon/util.py"
+  souce "util.py.fix"
+end
+
 python_pip "zope.interface" do
   action :install
 end
