@@ -14,6 +14,7 @@ default["graphite"]["dashboard"]["mysql_server"]            = ""
 default["graphite"]["dashboard"]["mysql_port"]              = ""
 default["graphite"]["dashboard"]["mysql_username"]          = ""
 default["graphite"]["dashboard"]["mysql_password"]          = ""
+default["graphite"]["dashboard"]["apache_ports"]            = []
 
 # The default values template
 default["graphite"]["templates"]["default"]["background"]   = "black"

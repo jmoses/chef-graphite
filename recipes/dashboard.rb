@@ -1,3 +1,7 @@
+if node['graphite']['dashboard']['apache_ports'].size > 0
+  node['apache']['listen_ports'] = node['graphite']['dashboard']['apache_ports']
+end
+
 include_recipe "apache2"
 include_recipe "apache2::mod_python"
 
