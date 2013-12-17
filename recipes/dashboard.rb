@@ -1,5 +1,5 @@
 if node['graphite']['dashboard']['apache_ports'].size > 0
-  node['apache']['listen_ports'] = node['graphite']['dashboard']['apache_ports']
+  node.normal['apache']['listen_ports'] = node['graphite']['dashboard']['apache_ports']
 end
 
 include_recipe "apache2"
