@@ -61,6 +61,9 @@ apache_site "000-default" do
 end
 
 web_app "graphite" do
+  port_list = node['graphite']['dashboard']['apache_ports'] 
+
+  port (port_list ? port_list.first : '80') || '80' 
   template "graphite.conf.erb"
   docroot "#{node['graphite']['home']}/webapp"
   server_name "graphite"
