@@ -10,7 +10,7 @@ cookbook_file "carbon/util.py" do
   owner 'root'
   group 'root'
 
-  path "/opt/graphite/lib/carbon/util.py"
+  path ::File.join(node['graphite']['home'], "lib/carbon/util.py")
   source "util.py.fix"
 end
 
