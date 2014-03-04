@@ -18,7 +18,7 @@ else
   packages = [ "python-cairo-dev", "python-django", "python-django-tagging", "python-memcache", "python-rrdtool" ]
 end
 
-packages.each do |graphite_package|
+['sqlite3', packages].flatten.each do |graphite_package|
   package graphite_package do
     action :install
   end
@@ -61,9 +61,9 @@ apache_site "000-default" do
 end
 
 web_app "graphite" do
-  port_list = node['graphite']['dashboard']['apache_ports'] 
+  port_list = node['graphite']['dashboard']['apache_ports']
 
-  port (port_list ? port_list.first : '80') || '80' 
+  port (port_list ? port_list.first : '80') || '80'
   template "graphite.conf.erb"
   docroot "#{node['graphite']['home']}/webapp"
   server_name "graphite"
@@ -97,4 +97,12 @@ logrotate_app "dashboard" do
   frequency "daily"
   rotate 7
   create "644 root root"
+end
+
+execute "initial db setup" do
+  user node['apache']['user']
+  cwd "#{node['graphite']['home']}/webapp/graphite"
+  command "python manage.py syncdb"
+
+  not_if { ::File.exists?("#{node['graphite']['home']}/storeage/graphite.db") }
 end
