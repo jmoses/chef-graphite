@@ -100,9 +100,6 @@ logrotate_app "dashboard" do
 end
 
 execute "initial db setup" do
-  user node['apache']['user']
   cwd "#{node['graphite']['home']}/webapp/graphite"
   command "python manage.py syncdb"
-
-  not_if { ::File.exists?("#{node['graphite']['home']}/storeage/graphite.db") }
 end
